@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } fr
 import { useLanguage } from '../context/LanguageContext';
 import { Header } from '../components/Header';
 import { BottomNavBar, TabKey } from '../components/BottomNavBar';
+import { SwipeCheckInButton } from '../components/SwipeCheckInButton';
 
 interface AttendanceCheckOutScreenProps {
   onCheckOut: () => void;
@@ -66,10 +67,13 @@ export const AttendanceCheckOutScreen: React.FC<AttendanceCheckOutScreenProps> =
           </View>
         </View>
 
-        {/* Check-out Action CTA */}
-        <TouchableOpacity activeOpacity={0.85} style={styles.checkOutBtn} onPress={onCheckOut}>
-          <Text style={styles.checkOutBtnText}>{t('checkOutNowBtn')} ➔</Text>
-        </TouchableOpacity>
+        {/* Interactive Swipe Slider to Confirm Check-Out / Check-In */}
+        <View style={styles.sliderWrapper}>
+          <SwipeCheckInButton
+            mode="check-in"
+            onSwipeComplete={onCheckOut}
+          />
+        </View>
       </ScrollView>
 
       <BottomNavBar activeTab="Attendance" onSelectTab={onTabSelect} />
@@ -203,21 +207,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#1B3B22',
   },
-  checkOutBtn: {
-    height: 52,
-    backgroundColor: '#1E5E2F',
-    borderRadius: 14,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#1E5E2F',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 4,
-  },
-  checkOutBtnText: {
-    fontSize: 16,
-    fontWeight: '800',
-    color: '#FFFFFF',
+  sliderWrapper: {
+    marginVertical: 10,
+    paddingHorizontal: 4,
   },
 });

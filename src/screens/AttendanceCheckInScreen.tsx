@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Ima
 import { useLanguage } from '../context/LanguageContext';
 import { Header } from '../components/Header';
 import { BottomNavBar, TabKey } from '../components/BottomNavBar';
+import { SwipeCheckInButton } from '../components/SwipeCheckInButton';
 
 const farmMapImg = require('../assets/images/farm_map.png');
 const satelliteMapImg = require('../assets/images/satellite_map.png');
@@ -87,14 +88,13 @@ export const AttendanceCheckInScreen: React.FC<AttendanceCheckInScreenProps> = (
           <Text style={styles.calloutText}>{t('gpsNoticeText')}</Text>
         </View>
 
-        {/* Navigation to CheckOut */}
-        <TouchableOpacity
-          activeOpacity={0.85}
-          style={styles.checkOutNavBtn}
-          onPress={onNavigateToCheckOut}
-        >
-          <Text style={styles.checkOutNavBtnText}>View Check-out Screen ➔</Text>
-        </TouchableOpacity>
+        {/* Interactive Swipe Slider to Check-Out */}
+        <View style={styles.sliderWrapper}>
+          <SwipeCheckInButton
+            mode="check-out"
+            onSwipeComplete={onNavigateToCheckOut}
+          />
+        </View>
       </ScrollView>
 
       <BottomNavBar activeTab="Attendance" onSelectTab={onTabSelect} />
@@ -261,19 +261,8 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontWeight: '600',
   },
-  checkOutNavBtn: {
-    height: 48,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    borderWidth: 1.5,
-    borderColor: '#1E5E2F',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  checkOutNavBtnText: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: '#1E5E2F',
+  sliderWrapper: {
+    marginVertical: 10,
+    paddingHorizontal: 4,
   },
 });
