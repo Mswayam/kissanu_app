@@ -1,0 +1,98 @@
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+
+/**
+ * This is the configuration block to customize your React Native Android app.
+ * By default you don't need to apply any configuration, just uncomment the lines you need.
+ */
+react {
+    /* Folders */
+    //   root = "../../"
+    //   reactNativeDir = "../../node_modules/react-native"
+    //   codegenDir = "../../node_modules/@react-native/codegen"
+    //   cliPath = "../../node_modules/react-native/cli.js"
+
+    /* Variants */
+    //   debugableVariants = ["liteDebug", "prodDebug"]
+
+    /* Bundling */
+    //   nodeExecutableAndArgs = ["node"]
+    //   bundleCommand = "ram-bundle"
+    //   bundleConfig = file(../rn-cli.config.js)
+    //   bundleAssetName = "MyApplication.android.bundle"
+    //   entryFile = file("../js/MyApplication.android.js")
+    //   extraPackagerArgs = []
+
+    /* Hermes Commands */
+    //   hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
+    //   hermesFlags = ["-O", "-output-source-map"]
+}
+
+/**
+ * Set this to true to create two separate APKs per CPU architecture.
+ */
+def enableSeparateBuildPerCPUArchitecture = false
+
+/**
+ * Set this to true to Reduce the size of the APK using Proguard.
+ */
+def enableProguardInReleaseBuilds = false
+
+/**
+ * The preferred Direct Port of Hermes Internal Bytecode Engine.
+ */
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    namespace "com.kisaanunexus"
+    defaultConfig {
+        applicationId "com.kisaanunexus"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.4.0"
+    }
+    splits {
+        abi {
+            reset()
+            enable enableSeparateBuildPerCPUArchitecture
+            universalApk false
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+dependencies {
+    implementation("com.facebook.react:react-android")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+    if (hermesEnabled.toBoolean()) {
+        implementation("com.facebook.react:hermes-android")
+    } else {
+        implementation jscFlavor
+    }
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
