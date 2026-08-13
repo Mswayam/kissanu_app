@@ -134,6 +134,13 @@ npx react-native run-ios
 npm run android
 ```
 
+### Option D: Run in Web Browser (React Native Web)
+To run the full app directly in your desktop browser:
+```bash
+npm run web
+```
+This launches Webpack dev server on **`http://localhost:3000`** with a responsive mobile device frame preview.
+
 ---
 
 ## 🧪 Code Quality & Verification Commands
