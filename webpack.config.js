@@ -25,6 +25,11 @@ const babelLoaderConfiguration = {
   },
 };
 
+const imageLoaderConfiguration = {
+  test: /\.(gif|jpe?g|png|svg)$/i,
+  type: 'asset/resource',
+};
+
 module.exports = {
   entry: [path.resolve(appDirectory, 'index.web.js')],
   output: {
@@ -32,7 +37,7 @@ module.exports = {
     path: path.resolve(appDirectory, 'dist'),
   },
   module: {
-    rules: [babelLoaderConfiguration],
+    rules: [babelLoaderConfiguration, imageLoaderConfiguration],
   },
   resolve: {
     alias: {

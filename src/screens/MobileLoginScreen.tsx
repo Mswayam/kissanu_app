@@ -8,9 +8,12 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  Image,
 } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 import { BackArrowIcon } from '../components/Icons';
+
+const tractorLoginImg = require('../assets/images/tractor_login.png');
 
 interface MobileLoginScreenProps {
   onNext: () => void;
@@ -37,10 +40,9 @@ export const MobileLoginScreen: React.FC<MobileLoginScreenProps> = ({ onNext, on
             <View style={{ width: 32 }} />
           </View>
 
-          {/* Banner Graphic */}
+          {/* Banner Graphic with Real Image */}
           <View style={styles.bannerCard}>
-            <Text style={styles.bannerEmoji}>🚜</Text>
-            <Text style={styles.bannerText}>Smart Farm Management</Text>
+            <Image source={tractorLoginImg} style={styles.bannerImage} resizeMode="cover" />
           </View>
 
           {/* Login Form */}
@@ -111,22 +113,15 @@ const styles = StyleSheet.create({
   },
   bannerCard: {
     height: 140,
-    backgroundColor: '#E8F5E9',
     borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'hidden',
     marginVertical: 12,
     borderWidth: 1,
     borderColor: '#C8E6C9',
   },
-  bannerEmoji: {
-    fontSize: 48,
-  },
-  bannerText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#1E5E2F',
-    marginTop: 4,
+  bannerImage: {
+    width: '100%',
+    height: '100%',
   },
   formContainer: {
     backgroundColor: '#FFFFFF',

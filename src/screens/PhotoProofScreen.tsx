@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 import { BackArrowIcon } from '../components/Icons';
+
+const photoProofImg = require('../assets/images/photo_proof.png');
 
 interface PhotoProofScreenProps {
   onNext: () => void;
@@ -23,13 +25,12 @@ export const PhotoProofScreen: React.FC<PhotoProofScreenProps> = ({ onNext, onBa
           <View style={{ width: 32 }} />
         </View>
 
-        {/* Viewfinder Preview */}
+        {/* Viewfinder Preview with Real Photo */}
         <View style={styles.viewfinderCard}>
-          <View style={styles.crosshairContainer}>
+          <Image source={photoProofImg} style={styles.viewfinderImage} resizeMode="cover" />
+          <View style={styles.crosshairOverlay}>
             <View style={styles.crosshairCircle} />
           </View>
-          <Text style={styles.viewfinderEmoji}>🌾</Text>
-          <Text style={styles.viewfinderText}>Crop Field Preview</Text>
         </View>
 
         {/* Question Prompt Card */}
@@ -101,13 +102,15 @@ const styles = StyleSheet.create({
     height: 220,
     backgroundColor: '#81C784',
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
     marginVertical: 10,
     position: 'relative',
     overflow: 'hidden',
   },
-  crosshairContainer: {
+  viewfinderImage: {
+    width: '100%',
+    height: '100%',
+  },
+  crosshairOverlay: {
     position: 'absolute',
     top: 14,
     left: 14,
@@ -118,15 +121,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 2,
     borderColor: '#FFFFFF',
-  },
-  viewfinderEmoji: {
-    fontSize: 70,
-  },
-  viewfinderText: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    marginTop: 8,
   },
   questionCard: {
     backgroundColor: '#FFFFFF',

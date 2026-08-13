@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 import { Header } from '../components/Header';
 import { BottomNavBar, TabKey } from '../components/BottomNavBar';
+
+const farmerAvatarImg = require('../assets/images/farmer_welcome.png');
 
 export interface UserProfile {
   name: string;
@@ -35,7 +37,7 @@ export const FarmerProfileScreen: React.FC<FarmerProfileScreenProps> = ({
 
         <View style={styles.profileHeaderCard}>
           <View style={styles.avatarBig}>
-            <Text style={styles.avatarInitial}>{user.name ? user.name.charAt(0) : 'S'}</Text>
+            <Image source={farmerAvatarImg} style={styles.avatarBigImg} resizeMode="cover" />
           </View>
           <Text style={styles.userName}>{user.name}</Text>
           <Text style={styles.userPhone}>{user.phone}</Text>
@@ -68,8 +70,8 @@ const styles = StyleSheet.create({
   scrollContent: { paddingHorizontal: 20, paddingVertical: 16 },
   pageTitle: { fontSize: 16, fontWeight: '900', color: '#1E5E2F', textAlign: 'center', marginBottom: 16 },
   profileHeaderCard: { backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20, alignItems: 'center', marginBottom: 16, borderWidth: 1, borderColor: '#E6EFE7' },
-  avatarBig: { width: 70, height: 70, borderRadius: 35, backgroundColor: '#00BFA5', justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
-  avatarInitial: { fontSize: 32, fontWeight: '900', color: '#FFFFFF' },
+  avatarBig: { width: 70, height: 70, borderRadius: 35, overflow: 'hidden', marginBottom: 12 },
+  avatarBigImg: { width: '100%', height: '100%' },
   userName: { fontSize: 20, fontWeight: '900', color: '#1B3B22' },
   userPhone: { fontSize: 13, color: '#657766', marginTop: 2 },
   infoCard: { backgroundColor: '#FFFFFF', borderRadius: 16, padding: 16, marginBottom: 24, borderWidth: 1, borderColor: '#E6EFE7' },

@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
+
+const farmerWelcomeImg = require('../assets/images/farmer_welcome.png');
 
 interface WelcomeLanguageScreenProps {
   onNext: () => void;
@@ -24,11 +26,7 @@ export const WelcomeLanguageScreen: React.FC<WelcomeLanguageScreenProps> = ({
 
         {/* Central Illustration Card */}
         <View style={styles.heroCard}>
-          <View style={styles.illustrationPlaceholder}>
-            <Text style={styles.heroEmoji}>👨‍🌾</Text>
-            <View style={styles.sunGraphic} />
-            <View style={styles.fieldGraphic} />
-          </View>
+          <Image source={farmerWelcomeImg} style={styles.heroImage} resizeMode="cover" />
         </View>
 
         {/* Language Options Section */}
@@ -114,35 +112,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#C8E6C9',
   },
-  illustrationPlaceholder: {
+  heroImage: {
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#D0F0D8',
-    position: 'relative',
-  },
-  heroEmoji: {
-    fontSize: 80,
-    zIndex: 2,
-  },
-  sunGraphic: {
-    position: 'absolute',
-    top: 20,
-    right: 40,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#FFE082',
-  },
-  fieldGraphic: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    height: 60,
-    backgroundColor: '#A5D6A7',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
   },
   languageSection: {
     width: '100%',

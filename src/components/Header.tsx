@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { BackArrowIcon } from './Icons';
 import { LanguageToggle } from './LanguageToggle';
 import { useLanguage } from '../context/LanguageContext';
+
+const farmerAvatarImg = require('../assets/images/farmer_welcome.png');
 
 export interface HeaderProps {
   showBack?: boolean;
@@ -58,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
           style={styles.profileAvatarBtn}
           onPress={() => setShowProfileMenu(!showProfileMenu)}
         >
-          <Text style={styles.avatarInitial}>S</Text>
+          <Image source={farmerAvatarImg} style={styles.avatarImg} resizeMode="cover" />
         </TouchableOpacity>
       </View>
 
@@ -66,7 +68,7 @@ export const Header: React.FC<HeaderProps> = ({
         <View style={styles.profileDropdown}>
           <View style={styles.profileDropdownHeader}>
             <View style={styles.dropdownAvatarSquare}>
-              <Text style={styles.dropdownAvatarInitial}>S</Text>
+              <Image source={farmerAvatarImg} style={styles.dropdownAvatarImg} resizeMode="cover" />
             </View>
             <View style={styles.dropdownTextWrapper}>
               <Text style={styles.dropdownName}>Swayam Mhaske</Text>
@@ -181,14 +183,11 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 10,
-    backgroundColor: '#00BFA5',
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'hidden',
   },
-  avatarInitial: {
-    fontSize: 16,
-    fontWeight: '900',
-    color: '#FFFFFF',
+  avatarImg: {
+    width: '100%',
+    height: '100%',
   },
   profileDropdown: {
     position: 'absolute',
@@ -216,15 +215,12 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 10,
-    backgroundColor: '#00BFA5',
-    justifyContent: 'center',
-    alignItems: 'center',
+    overflow: 'hidden',
     marginRight: 10,
   },
-  dropdownAvatarInitial: {
-    fontSize: 18,
-    fontWeight: '900',
-    color: '#FFFFFF',
+  dropdownAvatarImg: {
+    width: '100%',
+    height: '100%',
   },
   dropdownTextWrapper: {
     flex: 1,

@@ -1,8 +1,11 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 import { Header } from '../components/Header';
 import { BottomNavBar, TabKey } from '../components/BottomNavBar';
+
+const farmMapImg = require('../assets/images/farm_map.png');
+const satelliteMapImg = require('../assets/images/satellite_map.png');
 
 interface AttendanceCheckInScreenProps {
   onNavigateProfile: () => void;
@@ -18,6 +21,7 @@ export const AttendanceCheckInScreen: React.FC<AttendanceCheckInScreenProps> = (
   onTabSelect,
 }) => {
   const { t } = useLanguage();
+  const [isSatellite, setIsSatellite] = useState<boolean>(false);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -45,11 +49,27 @@ export const AttendanceCheckInScreen: React.FC<AttendanceCheckInScreenProps> = (
         </View>
 
         {/* Location Verification Section */}
-        <Text style={styles.sectionHeader}>{t('verifiedLocationLabel')}</Text>
+        <View style={styles.mapHeaderRow}>
+          <Text style={styles.sectionHeader}>{t('verifiedLocationLabel')}</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.mapToggleBtn}
+            onPress={() => setIsSatellite(!isSatellite)}
+          >
+            <Text style={styles.mapToggleText}>
+              {isSatellite ? '🗺️ Field View' : '🛰️ Satellite View'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.mapCard}>
-          {/* Simulated GPS Field Map Visual */}
-          <View style={styles.mapVisual}>
+          {/* Real GPS Field Map Image Visual */}
+          <View style={styles.mapVisualContainer}>
+            <Image
+              source={isSatellite ? satelliteMapImg : farmMapImg}
+              style={styles.mapImage}
+              resizeMode="cover"
+            />
             <View style={styles.pinBadge}>
               <Text style={styles.pinText}>📍 {t('youAreHerePin')}</Text>
             </View>
@@ -152,12 +172,30 @@ const styles = StyleSheet.create({
     color: '#657766',
     marginTop: 4,
   },
+  mapHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   sectionHeader: {
     fontSize: 12,
     fontWeight: '800',
     color: '#657766',
     letterSpacing: 0.8,
-    marginBottom: 10,
+  },
+  mapToggleBtn: {
+    backgroundColor: '#E8F5E9',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#C8E6C9',
+  },
+  mapToggleText: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#1E5E2F',
   },
   mapCard: {
     backgroundColor: '#FFFFFF',
@@ -167,11 +205,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E6EFE7',
   },
-  mapVisual: {
-    height: 140,
-    backgroundColor: '#81C784',
+  mapVisualContainer: {
+    height: 180,
+    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  mapImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
   },
   pinBadge: {
     backgroundColor: '#1E5E2F',

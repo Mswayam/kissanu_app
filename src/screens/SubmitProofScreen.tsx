@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import { useLanguage } from '../context/LanguageContext';
 import { BackArrowIcon } from '../components/Icons';
+
+const photoProofImg = require('../assets/images/photo_proof.png');
 
 interface SubmitProofScreenProps {
   onSubmit: () => void;
@@ -28,11 +30,9 @@ export const SubmitProofScreen: React.FC<SubmitProofScreenProps> = ({ onSubmit, 
           <View style={styles.card}>
             <Text style={styles.sectionHeader}>{t('reviewAttachmentsTitle')}</Text>
 
-            {/* Photo Attachment Item */}
+            {/* Photo Attachment Item with Real Image */}
             <View style={styles.attachmentItem}>
-              <View style={styles.thumbnailPlaceholder}>
-                <Text style={styles.thumbEmoji}>🌾</Text>
-              </View>
+              <Image source={photoProofImg} style={styles.thumbnailImage} resizeMode="cover" />
               <View style={styles.itemTextContent}>
                 <Text style={styles.fileName}>{t('photoAttachmentName')}</Text>
                 <Text style={styles.fileSize}>{t('photoAttachmentSize')}</Text>
@@ -128,17 +128,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
   },
-  thumbnailPlaceholder: {
+  thumbnailImage: {
     width: 44,
     height: 44,
     borderRadius: 10,
-    backgroundColor: '#A5D6A7',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginRight: 12,
-  },
-  thumbEmoji: {
-    fontSize: 22,
   },
   voiceIconSquare: {
     width: 44,
