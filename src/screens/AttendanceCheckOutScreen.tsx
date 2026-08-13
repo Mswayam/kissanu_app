@@ -30,6 +30,14 @@ export const AttendanceCheckOutScreen: React.FC<AttendanceCheckOutScreenProps> =
         {/* Title */}
         <Text style={styles.pageTitle}>{t('checkOutHeaderTitle')}</Text>
 
+        {/* Interactive Swipe Slider (Placed at top for instant access) */}
+        <View style={styles.sliderWrapper}>
+          <SwipeCheckInButton
+            mode="check-in"
+            onSwipeComplete={onCheckOut}
+          />
+        </View>
+
         {/* Status Banner */}
         <View style={styles.statusBanner}>
           <View style={styles.redDot} />
@@ -65,14 +73,6 @@ export const AttendanceCheckOutScreen: React.FC<AttendanceCheckOutScreenProps> =
             <Text style={styles.locPinIcon}>📍</Text>
             <Text style={styles.locationAddress}>{t('mainGateEntrance')}</Text>
           </View>
-        </View>
-
-        {/* Interactive Swipe Slider to Confirm Check-Out / Check-In */}
-        <View style={styles.sliderWrapper}>
-          <SwipeCheckInButton
-            mode="check-in"
-            onSwipeComplete={onCheckOut}
-          />
         </View>
       </ScrollView>
 
